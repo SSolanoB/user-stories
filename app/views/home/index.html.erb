@@ -49,7 +49,6 @@ Profile of <strong><%= current_user.name %></strong>. </br>
       <th>Body</th>
       <th>Exp-date</th>
       <th>Action - Seen</th>
-      <th>Result - Seen</th>
     </tr>
   </thead>
 
@@ -62,8 +61,17 @@ Profile of <strong><%= current_user.name %></strong>. </br>
           <td><%=user.name %></td>
           <td><%= post.body %></td>
           <td><%= post.expiration %></td>
-          <td><%= link_to 'Mark as seen', '#'%></td>
-          <td>Yes/No</td>
+          <td>
+            <%= form_for(@seen, url: createseen_path) do |f| %>
+            <div class="field">
+              <%= f.label :userid, :value => current_user.id%>
+              <%= f.label :postid, :value => post.id%>
+            </div>
+            <div class="actions">
+              <%= f.submit "Seen", class: "btn btn-primary" %>
+            </div>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     <% end %>
