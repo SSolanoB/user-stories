@@ -3,6 +3,7 @@ class SeensController < ApplicationController
     @seen = current_user.seens.build(seen_params)
     if @seen.save
       flash.now[:success] = "Seen updated!"
+      redirect_to root_path
     else
       render '/home/index'
     end
@@ -11,6 +12,6 @@ class SeensController < ApplicationController
   private
 
     def seen_params
-      params.require(:seen).permit(:userid, :postid)
+      params.require(:seen).permit(:user_id, :post_id)
     end
 end

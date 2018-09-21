@@ -53,28 +53,26 @@ Profile of <strong><%= current_user.name %></strong>. </br>
   </thead>
 
   <tbody>
-    <% @users = User.all %>
-    <% @users.each do |user| %>
-      <% @posts = user.posts %>
       <% @posts.each do |post| %>
         <tr>
-          <td><%=user.name %></td>
+          <% if @seens.find_by(user_id: current_user.id, post_id: post.id).blank? %>
+          <td><%= post.user.name %></td>
           <td><%= post.body %></td>
           <td><%= post.expiration %></td>
           <td>
-            <%= form_for(@seen, url: createseen_path) do |f| %>
+            <%= form_for(@seen) do |f| %>
             <div class="field">
-              <%= f.label :userid, :value => current_user.id%>
-              <%= f.label :postid, :value => post.id%>
+              <%= f.hidden_field :user_id, :value => current_user.id%>
+              <%= f.hidden_field :post_id, :value => post.id%>
             </div>
             <div class="actions">
               <%= f.submit "Seen", class: "btn btn-primary" %>
+          <% end %>
             </div>
             <% end %>
           </td>
         </tr>
       <% end %>
-    <% end %>
   </tbody>
 </table>
 
