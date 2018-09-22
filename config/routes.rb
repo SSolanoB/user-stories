@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
   get 'home/index'
+  get '/list', to: 'home#post_listing'
   post '/create', to: 'posts#create'
   post '/createseen', to: 'seens#create'
   

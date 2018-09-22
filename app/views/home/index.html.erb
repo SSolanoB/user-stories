@@ -1,85 +1,34 @@
 <% if user_signed_in? %>
-Profile of <strong><%= current_user.name %></strong>. </br>
-  <% if current_user.posts.any? %>
+  Profile of <strong><%= current_user.name %></strong>. </br>
+
+  <% if current_user.posts.count >= 1 %>
     Continue creating your posts.
-    <%= form_for(@post, url: create_path) do |f| %>
-      <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being public:</h2>
-
-      <ul>
-      <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-    <div class="field">
-      <%= f.text_area :body, placeholder: "Compose new post..." %>
-      <%= f.text_area :expiration, placeholder: "Date and Time" %>
-    </div>
-    <div class="actions">
-      <%= f.submit "Post", class: "btn btn-primary" %>
-    </div>
-    <% end %>
-
-
   <% else %>
     You don't have any post yet! </br>
-    <%= form_for(@post, url: create_path) do |f| %>
-    <div class="field">
-      <%= f.text_area :body, placeholder: "Compose new post..." %>
-      <%= f.text_area :expiration, placeholder: "Date and Time" %>
-    </div>
-    <div class="actions">
-      <%= f.submit "Post", class: "btn btn-primary" %>
-    </div>
-    <% end %>
-    <%#= link_to "Create a post now", create_path, :class => 'navbar-link'  %></br>
   <% end %>
-</br>
-</br>
-</br>
-<h1>Posts</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>User name</th>
-      <th>Body</th>
-      <th>Exp-date</th>
-      <th>Action - Seen</th>
-    </tr>
-  </thead>
-
-  <tbody>
-      <% @posts.each do |post| %>
-        <tr>
-          <% if @seens.find_by(user_id: current_user.id, post_id: post.id).blank? %>
-          <td><%= post.user.name %></td>
-          <td><%= post.body %></td>
-          <td><%= post.expiration %></td>
-          <td>
-            <%= form_for(@seen) do |f| %>
-            <div class="field">
-              <%= f.hidden_field :user_id, :value => current_user.id%>
-              <%= f.hidden_field :post_id, :value => post.id%>
-            </div>
-            <div class="actions">
-              <%= f.submit "Seen", class: "btn btn-primary" %>
-          <% end %>
-            </div>
+    <%= form_for(@post, url: create_path) do |f| %>
+      <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being public:</h2>
+          <ul>
+            <% @post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
             <% end %>
-          </td>
-        </tr>
+          </ul>
+        </div>
       <% end %>
-  </tbody>
-</table>
+      <div class="field">
+        <%= f.text_area :body, placeholder: "Compose new post..." %>
+        <%= f.datetime_field :expiration %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Post", class: "btn btn-primary" %>
+      </div>
 
-<br>
-
-
+    <% end %>
+  
 <% else %>
-<h1>Register now!</h1>
-<%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %></br>
+  <h1>Register now!</h1>
+  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %></br>
 <% end %>

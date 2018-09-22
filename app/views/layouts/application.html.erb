@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UserStories</title>
     <%= render 'layouts/rails_default' %>
     <%= render 'layouts/shim' %>
@@ -14,6 +16,9 @@
     <% end %>
     <% if alert %>
       <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+    <% flash.each do |message_type, message| %>
+        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
     <% end %>
     <%= yield %>
     <%= render 'layouts/footer' %>

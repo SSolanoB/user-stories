@@ -1,12 +1,49 @@
-    <p class="navbar-text pull-right">
-      <li><%= link_to "All posts", '#' %></li>
-      <li><%= link_to "Not seen Posts", '#' %></li>
-      <% if user_signed_in? %>
-      Logged in as <strong><%= current_user.email %></strong>.
-      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-      <% else %>
-      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-      <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-      <% end %>
-    </p>
+     <div class="top-bar">
+      <div class="top-bar-left">
+        <div class="menu-text">
+          <% if user_signed_in? %>
+            Logged in as <strong><%= current_user.email %></strong>.
+          <% else %>
+            <strong>Inicia sesión!</strong>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <% if user_signed_in? %>
+            <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Posts", list_path %></li>
+            <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete  %></li>
+          <% else %>
+            <li><%= link_to "Sign up", new_user_registration_path  %></li>
+            <li><%= link_to "Login", new_user_session_path  %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+<!--     <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li class="menu-text">Site Title</li>
+          <li>
+            <a href="#">One</a>
+            <ul class="menu vertical">
+              <li><a href="#">One</a></li>
+              <li><a href="#">Two</a></li>
+              <li><a href="#">Three</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Two</a></li>
+          <li><a href="#">Three</a></li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><input type="search" placeholder="Search"></li>
+          <li><button type="button" class="button">Search</button></li>
+        </ul>
+      </div>
+    </div> -->
