@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   post '/createseen', to: 'seens#create'
   
   devise_for :users, controllers: { sessions: 'users/sessions' }
+  devise_scope :user do
+  get 'users/sign_out', to: 'users/sessions#destroy'
+  end
   resources :users do
     resources :posts
   end
