@@ -26,6 +26,8 @@ gem 'foundation-rails', '>= 6.0'
 
 gem 'devise'
 
+gem 'jquery-rails'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
