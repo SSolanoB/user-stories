@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post '/create', to: 'posts#create'
   post '/createseen', to: 'seens#create'
   
-  devise_for :users
+  devise_for :users, controllers: { sessions: 'users/sessions' }
   resources :users do
     resources :posts
   end
