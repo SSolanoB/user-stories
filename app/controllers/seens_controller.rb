@@ -3,7 +3,7 @@ class SeensController < ApplicationController
     @seen = current_user.seens.build(seen_params)
     if @seen.save
       flash.now[:success] = "Seen updated!"
-      redirect_to root_path
+      redirect_to list_path
     else
       render '/home/index'
     end

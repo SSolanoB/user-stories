@@ -1,34 +1,46 @@
-<% if user_signed_in? %>
-  Profile of <strong><%= current_user.name %></strong>. </br>
+<div class="grid-container">
+  <div class="grid-x grid-margin-x">
+    <div class="cell medium-6 large-5">
+      <% if user_signed_in? %>
+        </br>
+        <h1>
+        Profile of <strong><%= current_user.name %></strong>. </br>
+        </h1>
+        <% if current_user.posts.count >= 1 %>
+          Continue creating your posts.
+        <% else %>
+          You don't have any post yet! </br>
+        <% end %>
 
-  <% if current_user.posts.count >= 1 %>
-    Continue creating your posts.
-  <% else %>
-    You don't have any post yet! </br>
-  <% end %>
-
-    <%= form_for(@post, url: create_path) do |f| %>
-      <% if @post.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being public:</h2>
-          <ul>
-            <% @post.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+          <%= form_for(@post, url: create_path) do |f| %>
+            <% if @post.errors.any? %>
+              <div id="error_explanation">
+                <ul>
+                  <% @post.errors.full_messages.each do |message| %>
+                  <div data-closable class="alert-box callout alert">
+                    <i class="fa fa-ban"></i> <%= message %>
+                  <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                      <span aria-hidden="true">&CircleTimes;</span>
+                  </button>
+                  </div>
+                  <% end %>
+                </ul>
+              </div>
             <% end %>
-          </ul>
-        </div>
-      <% end %>
-      <div class="field">
-        <%= f.text_area :body, placeholder: "Compose new post..." %>
-        <%= f.datetime_field :expiration %>
-      </div>
-      <div class="actions">
-        <%= f.submit "Post", class: "btn btn-primary" %>
-      </div>
+            <div class="field">
+              <%= f.text_area :body, placeholder: "Compose new post..." %>
+              <%= f.datetime_field :expiration %>
+            </div>
+            <div class="actions">
+              <%= f.submit "Post", class: "btn btn-primary" %>
+            </div>
 
-    <% end %>
-  
-<% else %>
-  <h1>Register now!</h1>
-  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %></br>
-<% end %>
+          <% end %>
+        
+      <% else %>
+        <h1>Register now!</h1>
+        <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %></br>
+      <% end %>
+    </div>
+  </div>
+</div>

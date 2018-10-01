@@ -11,16 +11,21 @@
 
   <body>
     <%= render 'layouts/header' %>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
     <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+      <div class="grid-container">
+        <div class="grid-x grid-margin-x">
+          <div class="cell medium-6 large-7">
+            <div data-closable class="alert-box callout success">
+              <i class="fa fa-check"></i> <%= message %>
+            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">&CircleTimes;</span>
+            </button>
+            </div>
+          </div>  
+        </div>
+      </div>
     <% end %>
     <%= yield %>
-    <%= render 'layouts/footer' %>
+<!--     <%= render 'layouts/footer' %> -->
   </body>
 </html>
